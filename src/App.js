@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function App() {
   const [trans, setTrans ] = useState([]);
+  const [transPerDay, setTransPerDAy] = useState([]);
 
   useEffect(() => {
     // get all mint events
@@ -23,7 +24,15 @@ function App() {
     <div className="App">
       Fantom kittens Stats
       {trans && trans.map(mint => {
-        return <div>{timeStampToDate(mint.timeStamp) + ' - ' +  royalitiesToFullValue(mint.value) + ' ' + mint.tokenSymbol} </div>
+        return <div>{timeStampToDate(mint.timeStamp) + ' - ' +  royaltiesToFullValue(mint.value, mint.tokenDecimal) + ' ' + mint.tokenSymbol} </div>
+      })}
+
+
+      <br/>
+
+      Transactions per day
+      {trans && trans.map(mint => {
+        return <div>{timeStampToDate(mint.timeStamp) + ' - ' +  royaltiesToFullValue(mint.value, mint.tokenDecimal) + ' ' + mint.tokenSymbol} </div>
       })}
     </div>
   );
@@ -34,8 +43,8 @@ function timeStampToDate(timestamp){
   return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
 }
 
-function royalitiesToFullValue(royalities){
-  let value = royalities / 1000000000000000000;
+function royaltiesToFullValue(royalties, decimals){
+  let value = royalties / Math.pow(10, decimals);
   value = (100 * value) / 7.5;
   return value.toFixed(2);
 }
