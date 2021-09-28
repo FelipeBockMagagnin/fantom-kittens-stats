@@ -6,16 +6,15 @@ function App() {
   const [trans, setTrans ] = useState([]);
 
   useEffect(() => {
+    // get all mint events
     // axios.get('https://api.ftmscan.com/api?module=account&action=txlist&address=0xfd211f3b016a75bc8d73550ac5adc2f1cae780c0&startblock=0&endblock=99999999&sort=desc&apikey=YourApiKeyToken').then(data =>{
     //   console.log(data.data.result.filter(x => x.isError != '1' && x.txreceipt_status == '1'));
     //   setTrans(data.data.result.filter(x => x.isError != '1' && x.txreceipt_status == '1'));
     // })
 
-    axios.get('https://api.ftmscan.com/api?module=account&action=tokentx&address=0xc748e6de30222f4e9bc01812860ff005a82543e6&startblock=0&endblock=999999999&sort=desc&apikey=YourApiKeyToken').then(data =>{
+    //Get all tranx from royalties adress
+    axios.get('https://api.ftmscan.com/api?module=account&action=tokentx&address=0xc748e6de30222f4e9bc01812860ff005a82543e6&startblock=0&endblock=999999999&sort=desc&apikey=4U6J2QNXT1YWESGVETQJZ86YT2MP4MUG2M').then(data =>{
       console.log(data.data.result);
-
-      if(!data.data.result) return;
-
       setTrans(data.data.result);
     })
   }, [])
@@ -24,10 +23,21 @@ function App() {
     <div className="App">
       Fantom kittens Stats
       {trans && trans.map(mint => {
-        return <div>{new Date(mint.timeStamp * 1000).toLocaleDateString() + ' ' + new Date(mint.timeStamp * 1000).toLocaleTimeString() + ' - ' +  (100 *(mint.value/(1000000000000000000)/7.5)).toFixed(2) + ' ' + mint.tokenSymbol} </div>
+        return <div>{timeStampToDate(mint.timeStamp) + ' - ' +  royalitiesToFullValue(mint.value) + ' ' + mint.tokenSymbol} </div>
       })}
     </div>
   );
+}
+
+function timeStampToDate(timestamp){
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+}
+
+function royalitiesToFullValue(royalities){
+  let value = royalities / 1000000000000000000;
+  value = (100 * value) / 7.5;
+  return value.toFixed(2);
 }
 
 export default App;
