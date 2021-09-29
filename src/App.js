@@ -104,9 +104,9 @@ function App() {
       labels: days,
       datasets: [
         {
-          label: 'Transactions',
+          label: 'USC',
           data: dataset,
-          borderColor: 'red',
+          borderColor: 'blue',
           backgroundColor: 'white',
           yAxisID: 'y',
         }
