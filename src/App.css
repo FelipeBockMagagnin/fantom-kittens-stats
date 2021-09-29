@@ -24,10 +24,30 @@ body {
 }
 
 .graph-container {
-  width: 50vw;
+  width: 45vw;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .graph-container{
+    width: 90vw;
+  }
+}
+
+.graphs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.prices {
+  color: white;
+  text-align: left;
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
 }
