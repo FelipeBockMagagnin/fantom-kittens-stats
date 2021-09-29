@@ -104,7 +104,7 @@ function App() {
       labels: days,
       datasets: [
         {
-          label: 'USC',
+          label: 'USDC',
           data: dataset,
           borderColor: 'blue',
           backgroundColor: 'white',
@@ -132,7 +132,7 @@ function App() {
 
         {
           chartVolume && <div className='graph-container'>
-            <p style={{ fontWeight: 700, fontSize: 20, margin: 5 }}>Volume (USC)</p>
+            <p style={{ fontWeight: 700, fontSize: 20, margin: 5 }}>Total Volume (USDC)</p>
             <Line data={chartVolume} />
           </div>
         }
